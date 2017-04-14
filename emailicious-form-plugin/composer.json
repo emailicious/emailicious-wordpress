@@ -1,0 +1,16 @@
+{
+    "name": "emailicious-form-plugin",
+    "description": "",
+    "type": "wordpress-plugin",
+    "license": "MIT",
+    "authors": [{
+        "name": "Samuel Charette",
+        "email": "samuel.charette@emailicous.com"
+    }],
+    "require": {
+    	"emailicious/emailicious": "~1.0"
+    },
+	"autoload": {
+        "psr-0": {"AppName": "src/"}
+    }
+}
