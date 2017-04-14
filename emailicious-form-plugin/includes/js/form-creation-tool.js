@@ -1,6 +1,9 @@
 ( function( $ ) {
 
+	$(function(){
+		window.console.log($(".ui-draggable"));
+		$(".ui-draggable").draggable();
+	})
 
-$('.btn btn-info').draggable({cancel:false})
 
-} )();
+} )(jQuery);

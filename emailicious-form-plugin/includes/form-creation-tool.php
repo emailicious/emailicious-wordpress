@@ -27,20 +27,21 @@ use Guzzle\Http\Exception\BadResponseException;
 function wpformelicious_form_creation_tool_HTML() {
     ob_start(); ?>
     <body>
-        <form id="user-form" action="" method="post"> 
-            <p>
-                Email: <input type="text" name="email" value="" required/>
-            </p>
-            <p>
-                First name: <input type="text" name="first_name" value= "" required/>
-            </p>
-            <p>
-                Last name : <input type="text" name="last_name" value= "" required/>
-            </p>
-            <p>
-                <input type="submit" name="submit" value="Subscribe!" />
-            </P>
-        </form>
+            <form action="" method="post"> 
+                <p>
+                    Email: <input type="text" name="email" value="" required/>
+                </p>
+                <p>
+                    First name: <input type="text" name="first_name" value= "" required/>
+                </p>
+                <p>
+                    Last name : <input type="text" name="last_name" value= "" required/>
+                </p>
+                <p class="ui-draggable">
+                    <input type="submit" name="submit" value="Subscribe" />
+                </P>
+            </form>
+        </div>
     </body>
     <?php 
     global $current_form;
@@ -59,8 +60,9 @@ function wpformelicious_form_creation_final_form(){
         'last_name' => $_POST['last_name']
     );
     // if the submit button is clicked, send the email
-    if ( isset( $_POST['submit'] ) ) { 
-        wpformelicious_form_creation_tool_add_subscriber("client", "samuel.charette@emailicious.com", "fdca28cef03d73c29b75870ba6c6fd88041cfb0dc37143170a9accf678babf1e", $data);
+    if ( isset( $_POST['submit'] ) ) {
+        $formelicious_user_info = get_option('formelicious_user_info'); 
+        wpformelicious_form_creation_tool_add_subscriber($formelicious_user_info['account'], $formelicious_user_info['username'], $formelicious_user_info['password'], $data);
     }
 }
 
