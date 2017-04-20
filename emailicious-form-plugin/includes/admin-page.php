@@ -36,7 +36,7 @@ ob_start(); ?>
   				</div>
 			</div>
 			<?php endif; ?>
-			<form name="dashboard-form" action="" method="post">
+			<form action="" method="post" autocomplete="off">
 			<table class="form-table">
 				<tbody>
 					<tr>
@@ -51,7 +51,7 @@ ob_start(); ?>
 					</tr>
 					<tr>
 						<th scope="row">
-							<label for="username">Account</label>
+							<label for="account">Account</label>
 						</th>
 						<td>
 							<p>
@@ -61,11 +61,14 @@ ob_start(); ?>
 					</tr>
 					<tr>
 						<th scope="row">
-							<label for="username">Password</label>
+							<label for="password">Password</label>
 						</th>
 						<td>
 							<p>
-								<input class="regular-text" type="password" name="password" value="<?php echo isset($formelicious_user_info['password']) ? $formelicious_user_info['password'] : '' ?>" required/>
+								<!-- We use a fake password field in order to disable chrome form auto filling -->
+								<!-- This is a workaround. Make sure to change if another option is more viable -->
+								<input type="password" name="password" id="password_fake" value="" style="display:none;" />
+								<input class="regular-text" type="password" name="password" id="password" data-toggle="password">
 							</p>
 						</td>
 					</tr>
@@ -102,7 +105,7 @@ ob_start(); ?>
 
         		//clean the buffer in order to refresh the page
         		ob_clean();
-        		wpformelicious_dashboard_page();
+        		wpformelicious_options_page();
 			}
 			?>
         </div>
@@ -116,7 +119,7 @@ echo ob_get_clean();
 
 
 function wpformelicious_options_link() {
-    add_options_page('Formelicious options', 'Formelicious', 'manage_options', 'wpformelicious-options', 'wpformelicious_options_page');
+     array_push($GLOBALS['wpformelicious_hook_suffix'], add_options_page('Formelicious options', 'Formelicious', 'manage_options', 'wpformelicious-options', 'wpformelicious_options_page'));
 }
 
 add_action( 'admin_menu', 'wpformelicious_options_link');

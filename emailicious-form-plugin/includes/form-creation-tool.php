@@ -21,6 +21,11 @@ use Emailicious\Subscribers\Exceptions\SubscriberConflict;
 use Guzzle\Http\Exception\BadResponseException;
 
 
+/*
+TODO
+The entire tool is to develop. At the moment, only the below code is render when a user uses Formelicious shortcode (users cant customize the form).
+*/
+
 /************************
 * HTML output of the tool 
 *************************/
@@ -54,13 +59,13 @@ function wpformelicious_form_creation_tool_HTML() {
 function wpformelicious_form_creation_final_form(){
     global $current_form;
     echo $current_form;
-    $data = array(
+    // if the submit button is clicked, send the email
+    if ( isset( $_POST['submit'] ) ) {
+        $data = array(
         'email' => $_POST['email'],
         'first_name' => $_POST['first_name'],
         'last_name' => $_POST['last_name']
     );
-    // if the submit button is clicked, send the email
-    if ( isset( $_POST['submit'] ) ) {
         $formelicious_user_info = get_option('formelicious_user_info'); 
         wpformelicious_form_creation_tool_add_subscriber($formelicious_user_info['account'], $formelicious_user_info['username'], $formelicious_user_info['password'], $data);
     }

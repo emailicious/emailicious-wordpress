@@ -4,63 +4,44 @@
 * This is where all scripts are loaded
 **************************************/
 
- 	
 
 /*****************************
-* Loading Jquery and Jquery UI
+* Loading scripts/styles files
 ******************************/
+function wpformelicious_load($hook) {
 
 
-function add_jquery_ui() {
-	wp_enqueue_script( 'jquery-ui-core' );
-	wp_enqueue_script( 'jquery-ui-widget' );
-	wp_enqueue_script( 'jquery-ui-mouse' );
-	wp_enqueue_script( 'jquery-ui-accordion' );
-	wp_enqueue_script( 'jquery-ui-autocomplete' );
-	wp_enqueue_script( 'jquery-ui-slider' );
-	wp_enqueue_script( 'jquery-ui-tabs' );
-	wp_enqueue_script( 'jquery-ui-sortable' );
-	wp_enqueue_script( 'jquery-ui-draggable' );
-	wp_enqueue_script( 'jquery-ui-droppable' );
-	wp_enqueue_script( 'jquery-ui-datepicker' );
-	wp_enqueue_script( 'jquery-ui-resize' );
-	wp_enqueue_script( 'jquery-ui-dialog' );
-	wp_enqueue_script( 'jquery-ui-button' );
+	//Here we make sure js and css files are loaded only for Formelicious custom pages
+	if (in_array($hook, $GLOBALS['wpformelicious_hook_suffix'])){
+
+		//Bootstrap
+		wp_register_script('bootstrap-script', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js');
+		wp_enqueue_script('bootstrap-script');
+
+		wp_register_style('bootstrap-style', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
+		wp_enqueue_style('bootstrap-style');
+
+		//Bootstrap show/hide password
+		wp_register_script('bootstrap-password', '//cdnjs.cloudflare.com/ajax/libs/bootstrap-show-password/1.0.3/bootstrap-show-password.min.js');
+		wp_enqueue_script('bootstrap-password');
+
+		//JQUERY
+		wp_enqueue_script('jquery');
+
+		//Formelicious Admin page
+		wp_register_script('wpformelicious-admin-page-script', plugin_dir_url(__FILE__) . 'js/admin-page.js');
+		wp_enqueue_script('wpformelicious-admin-page-script');
+
+		wp_register_style('wpformelicious-admin-page-style', plugin_dir_url(__FILE__) . 'css/admin-page.css');
+		wp_enqueue_style('wpformelicious-admin-page-style');
+
+
+	}
+
+	else {
+		return;
+	}
+	
 }
-add_action( 'wp_enqueue_scripts', 'add_jquery_ui' ); // loading Jquery UI site side
-add_action('admin_init', 'add_jquery_ui'); // loading Jquery UI in admin interface
+add_action('admin_enqueue_scripts', 'wpformelicious_load'); // loading in admin interface
 
-
-/************************
-* Loading Bootstrap
-*************************/
-// JS
-wp_register_script('prefix_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js');
-wp_enqueue_script('prefix_bootstrap');
-
-// CSS
-wp_register_style('prefix_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
-wp_enqueue_style('prefix_bootstrap');
-
-
-
-/*************************
-* Loading custom css files
-*************************/
-function wpformelicious_load_css() {
-	wp_enqueue_style('wpformelicious_form-creation-tool-css', plugin_dir_url(__FILE__) . 'css/form-creation-tool.css');
-}
-add_action('admin_init', 'wpformelicious_load_css'); // loading css in admin interface
-add_action( 'wp_enqueue_scripts', 'wpformelicious_load_css'); // loading css site side
-
-
-
-/*************************
-* Loading custom JS files
-*************************/
-function wpformelicious_load_js() {
-	wp_enqueue_script('wpformelicious_form-creation-tool-js', plugin_dir_url(__FILE__) . 'js/form-creation-tool.js');
-	wp_enqueue_script('wpformelicious_dashboard-js', plugin_dir_url(__FILE__) . 'js/dashboard.js');
-}
-add_action('admin_init', 'wpformelicious_load_js'); // loading js in admin interface
-add_action( 'wp_enqueue_scripts', 'wpformelicious_load_js'); // loading js site side
