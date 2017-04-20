@@ -34,7 +34,7 @@ function wpformelicious_form_creation_tool_HTML() {
     <body>
             <form action="" method="post"> 
                 <p>
-                    Email: <input type="text" name="email" value="" required/>
+                    Email: <input type="email" name="email" value="" required/>
                 </p>
                 <p>
                     First name: <input type="text" name="first_name" value= "" required/>
