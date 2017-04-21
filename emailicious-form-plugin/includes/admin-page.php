@@ -6,9 +6,9 @@ function wpformelicious_options_page() {
 	if (get_option('formelicious_user_info')){
 		$formelicious_user_info = get_option('formelicious_user_info');
 		/*
-		TO DO:
-		Call the same validation as below and if this validation pass 
-		consider the user as logged in.
+		*TO DO:
+		*Call the same validation as below and if this validation pass 
+		*consider the user as logged in.
 		*/
 		$GLOBALS['login_status']= true;
 	}
@@ -66,8 +66,9 @@ ob_start(); ?>
 						<td>
 							<p>
 								<!-- We use a fake password field in order to disable chrome form auto filling -->
-								<!-- This is a workaround. Make sure to change if another option is more viable -->
-								<input type="password" name="password" id="password_fake" value="" style="display:none;" />
+								<!-- This is a workaround. Make sure to change it if another option is more viable -->
+								<label id="password_fake" for="password_fake">Password</label>
+								<input type="password" name="password" id="password_fake" value="" />
 								<input class="regular-text" type="password" name="password" id="password" data-toggle="password">
 							</p>
 						</td>
@@ -87,23 +88,24 @@ ob_start(); ?>
     			TO DO:
     			Make sure to implement a validation for the credentials entered by the user.
     			Only consider the following code if the validation is sucessful. 
-    			A solution would be to ping Emailicious with those credetials and check the 
-    			server's response.
+    			A solution would be to ping Emailicious with those credentials and check the 
+    			server's response. If this validation does not pass, make sure to consider
+    			the user as offline: $GLOBALS['login_status']= false; 
     			*/
     			
-    			//Update user info in database
+    			//Update user's info in database
         		$formelicious_user_info = array(
 			        'username' => $_POST['username'],
 			        'account' => $_POST['account'],
 			        'password' => $_POST['password']
 			    );
-			    //store information in wp_options table (depending on prefix chose by user) 
+			    //Update information in wp_options table (depending on prefix chose by user) 
         		update_option('formelicious_user_info', $formelicious_user_info);
 
-        		//reassign NULL to our saving button 
+        		//Reassign NULL to our saving button 
         		$_POST['dashboard-submit'] = NULL;
 
-        		//clean the buffer in order to refresh the page
+        		//Clean the buffer in order to refresh the page
         		ob_clean();
         		wpformelicious_options_page();
 			}
@@ -112,10 +114,6 @@ ob_start(); ?>
 		<?php
 echo ob_get_clean();
 }
-
-
-
-
 
 
 function wpformelicious_options_link() {

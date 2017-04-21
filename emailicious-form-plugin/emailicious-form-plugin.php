@@ -15,11 +15,16 @@ add_action( 'plugins_loaded', 'get_user_info' ); // loading /wp-includes/pluggab
 function get_user_info(){
     $GLOBALS['current_user'] = wp_get_current_user(); // setting current user as global
 }
-//We make a global variable in order to keep track of user login status
+
+/****
+* We make a global variable in order to keep track of user login status. Mainly for html output. This value has nothing to do with the 
+* user authentication to Emailicious API. 
+*****/
 $GLOBALS['login_status'] = false;
 
 //We instantiate an array that will contain added pages suffix to properly load js and css files
 $GLOBALS['wpformelicious_hook_suffix'] = [];
+
 
 
 /**************************
@@ -29,8 +34,6 @@ define( 'WPFORMELICIOUS_PLUGIN', __FILE__ );
 define( 'WPFORMELICIOUS_PLUGIN_BASENAME', plugin_basename( WPFORMELICIOUS_PLUGIN ) );
 define( 'WPFORMELICIOUS_PLUGIN_NAME', trim( dirname( WPFORMELICIOUS_PLUGIN_BASENAME ), '/' ) );
 define( 'WPFORMELICIOUS_PLUGIN_DIR', untrailingslashit( dirname( WPFORMELICIOUS_PLUGIN ) ) );
-
-
 
 
 

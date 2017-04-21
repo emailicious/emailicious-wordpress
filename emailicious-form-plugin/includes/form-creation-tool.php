@@ -1,10 +1,10 @@
 
 <?php
 
-/***********************************************************************
+/****************************************************************
 * This is an easy to use tool that helps you create form and 
 * automatically connects it with the Emailicious API
-************************************************************************/
+****************************************************************/
 
 
 /**********************************************************
@@ -12,9 +12,9 @@
 **********************************************************/
 $current_form = "";
 
-/**********************************************************
-* use statements in order to utilize Emailicious PHP client
-**********************************************************/
+/************************************************************
+* "use" statements in order to utilize Emailicious PHP client
+************************************************************/
 use Emailicious\Client;
 use Emailicious\Subscribers\Subscriber;
 use Emailicious\Subscribers\Exceptions\SubscriberConflict;
@@ -22,8 +22,8 @@ use Guzzle\Http\Exception\BadResponseException;
 
 
 /*
-TODO
-The entire tool is to develop. At the moment, only the below code is render when a user uses Formelicious shortcode (users cant customize the form).
+*TODO:
+*The entire tool is to develop. At the moment, only the below code is render when a user uses Formelicious shortcode (users cant customize the form).
 */
 
 /************************
@@ -71,7 +71,9 @@ function wpformelicious_form_creation_final_form(){
     }
 }
 
-
+/*
+*TODO: We have to make sure to create shortcode with parameters in the future. That way, the user will be able to create more than one form for his site. 
+*/
 /*SHORTCODES*/
 add_shortcode( 'formelicious', 'wpformelicious_form_creation_tool_HTML' );
 
@@ -82,14 +84,24 @@ add_shortcode( 'formelicious', 'wpformelicious_form_creation_tool_HTML' );
 function wpformelicious_form_creation_tool_add_subscriber($account, $username, $password, $data) {
     $client = new Client($account, $username, $password);
     
+    /*
+    * TODO: Make sure user can choose a list (hardcoded at the moment).
+    */
     try {
         Subscriber::create($client, 91, $data);
     } catch (SubscriberConflict $conflict) {
         // Email is already registered, the conflicting subscriber can be retrieved.
         $conflictualSubscriber = $conflict->getConflictualSubscriber();
+
+        /*
+        *TODO: change this output to something more user firendly
+        */
         echo $conflictualSubscriber . " is already in this list";
     } catch (BadResponseException $exception) {
         $response = $exception->getResponse();
+        /*
+        *TODO: change this output to something more user firendly
+        */
         echo $response;
 
         if ($response->getStatusCode() == 400) {

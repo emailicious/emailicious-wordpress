@@ -11,7 +11,7 @@
 function wpformelicious_load($hook) {
 
 
-	//Here we make sure js and css files are loaded only for Formelicious custom pages
+	//Here we make sure JS and CSS files are loaded only for Formelicious custom pages
 	if (in_array($hook, $GLOBALS['wpformelicious_hook_suffix'])){
 
 		//Bootstrap
@@ -21,12 +21,15 @@ function wpformelicious_load($hook) {
 		wp_register_style('bootstrap-style', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
 		wp_enqueue_style('bootstrap-style');
 
+
 		//Bootstrap show/hide password
 		wp_register_script('bootstrap-password', '//cdnjs.cloudflare.com/ajax/libs/bootstrap-show-password/1.0.3/bootstrap-show-password.min.js');
 		wp_enqueue_script('bootstrap-password');
 
-		//JQUERY
+
+		//JQUERY (already registered in Wordpress)
 		wp_enqueue_script('jquery');
+
 
 		//Formelicious Admin page
 		wp_register_script('wpformelicious-admin-page-script', plugin_dir_url(__FILE__) . 'js/admin-page.js');
