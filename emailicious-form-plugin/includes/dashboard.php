@@ -15,7 +15,7 @@ use Guzzle\Http\Exception\BadResponseException;
 function wpformelicious_dashboard_page() {
 ob_start(); ?>
         <div class="wrap">
-        	<h1 class="wp-heading-inline">Formelecious</h1>
+        	<h1 class="wp-heading-inline">Formelicious</h1>
         	<a href="" class="page-title-action">Add New</a>
             <h4>Welcome <?php echo $GLOBALS['current_user']->display_name;?>!</h4>
         </div>

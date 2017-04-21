@@ -3,8 +3,8 @@
 function wpformelicious_options_page() {
 
 	//Get the current user info if it exists
-	if (get_option('formelicious_user_info')){
-		$formelicious_user_info = get_option('formelicious_user_info');
+	$formelicious_user_info = get_option('formelicious_user_info');
+	if ($formelicious_user_info){
 		/*
 		*TO DO:
 		*Call the same validation as below and if this validation pass 
